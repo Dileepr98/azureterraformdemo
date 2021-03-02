@@ -14,12 +14,12 @@ variables:
 
 steps:
 - task: TerraformInstaller@0
-  displayName: Install
+  displayName: Install terraform
   inputs:
     terraformVersion: 'latest'
 
 - task: TerraformTaskV1@0
-  displayName: init
+  displayName: init terraform
   inputs:
     provider: 'azurerm'
     command: 'init'
