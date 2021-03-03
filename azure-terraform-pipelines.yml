@@ -29,11 +29,9 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-out tfplan'
         environmentServiceNameAzureRM: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
     - task: TerraformTaskV1@0
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: 'tfplan'
         environmentServiceNameAzureRM: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
