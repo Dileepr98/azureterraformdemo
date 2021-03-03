@@ -24,6 +24,7 @@ stages:
         backendAzureRmResourceGroupName: 'k8sdemorg'
         backendAzureRmStorageAccountName: 'k8sterraformstorage'
         backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'YR36wPTgTmPH+ouRGN4cGskzPtbr5Y47RlMdSeKtceHuS3jo9SYfV2NeMJnQXu8wvusEC9tsohsQ+5e2jnxNMQ=='
     - task: TerraformTaskV1@0
       inputs:
         provider: 'azurerm'
