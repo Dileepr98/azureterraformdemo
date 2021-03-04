@@ -3,6 +3,8 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+data "azurerm_subscription" "primary" {}
+
 resource "azurerm_role_assignment" "role_acrpull" {
   scope                            = azurerm_container_registry.acr_test.id
   role_definition_name             = "Contributor"
