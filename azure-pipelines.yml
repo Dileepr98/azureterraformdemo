@@ -14,11 +14,7 @@ steps:
   displayName: 'Terraform - Install'
   inputs:
     terraformVersion: '0.14.7'
-- task: TerraformCLI@0
-  displayName: 'Terraform - validate'
-  inputs:
-    command: 'validate'
-    allowTelemetryCollection: true
+
 - task: TerraformTaskV1@0
   displayName: 'Terraform - Init'
   inputs:
@@ -37,6 +33,12 @@ steps:
     command: 'plan'
     commandOptions: '-input=false -var-file="terraform.tfvars"'
     environmentServiceNameAzureRM: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+- task: TerraformCLI@0
+  displayName: 'Terraform - validate'
+  inputs:
+    command: 'validate'
+    allowTelemetryCollection: true
+    
 - task: TerraformTaskV1@0
   displayName: 'Terraform - Apply'
   inputs:
