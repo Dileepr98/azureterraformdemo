@@ -3,15 +3,11 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
-data "azurerm_subscription" "primary" {}
-
-data "azurerm_client_config" "test" {}
-
 
 resource "azurerm_role_assignment" "role_acrpull" {
-  scope                            = "${data.azurerm_subscription.primary.id}"
+  scope                            = azurerm_container_registry.acr_test.id
   role_definition_name             = "Contributor"
-  principal_id                     = "${data.azurerm_client_config.test.service_principal_object_id}"
+  principal_id                     = azurerm_kubernetes_cluster.aks_test_cluster.kubelet_identity.0.object_id
   skip_service_principal_aad_check = true
 }
 
