@@ -70,8 +70,4 @@ stages:
         repository: 'mycodeimages'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: |
-          $(tag)
-
-    - upload: manifests
-      artifact: manifests
+        tags: '$(tag)'
