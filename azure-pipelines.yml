@@ -60,7 +60,6 @@ steps:
     azureResourceGroup: 'aks_terraform_nrg'
     kubernetesCluster: 'terraform-naks'
     command: 'init'
-    canaryImage: true
 - task: HelmDeploy@0
   displayName: 'Helm Upgrade'
   inputs:
