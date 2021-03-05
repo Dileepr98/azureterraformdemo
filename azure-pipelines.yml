@@ -13,8 +13,8 @@ stages:
 - stage: Terraform
   displayName: Terraform Stage
   jobs:
-  - job: Build
-    displayName: Build
+  - job: Terraform
+    displayName: Terraform
     pool:
       vmImage: $(vmImageName) 
     steps:
