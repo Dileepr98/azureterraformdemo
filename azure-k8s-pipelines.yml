@@ -25,7 +25,7 @@ steps:
     backendAzureRmResourceGroupName: 'k8sdem-norg'
     backendAzureRmStorageAccountName: 'newk8sstorage'
     backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'terraform.tfstate'
+    backendAzureRmKey: 'root.terraform.tfstate'
 - task: TerraformTaskV1@0
   displayName: 'Terraform - Plan'
   inputs:
