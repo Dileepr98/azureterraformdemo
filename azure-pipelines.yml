@@ -46,3 +46,9 @@ steps:
     command: 'apply'
     commandOptions: '-input=false -auto-approve -var-file="terraform.tfvars"'
     environmentServiceNameAzureRM: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+- task: TerraformCLI@0
+  condition: failed()
+  inputs:
+    command: 'destroy'
+    environmentServiceName: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+    allowTelemetryCollection: true
