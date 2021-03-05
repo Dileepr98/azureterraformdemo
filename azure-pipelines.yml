@@ -47,35 +47,3 @@ steps:
     runAzLogin: true
     commandOptions: '-var-file="terraform.tfvars"'
     allowTelemetryCollection: true
-- task: HelmInstaller@0
-  displayName: 'Helm Instaler'
-  inputs:
-    helmVersion: '2.14.1'
-    installKubectl: true
-- task: HelmDeploy@0
-  displayName: Helm init
-  inputs:
-    connectionType: 'Azure Resource Manager'
-    azureSubscription: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    azureResourceGroup: 'aks_terraform_nrg'
-    kubernetesCluster: 'terraform-naks'
-    command: 'init'
-    upgradeTiller: true
-    waitForExecution: true
-    arguments: --client-only
-- task: HelmDeploy@0
-  displayName: 'Helm Upgrade'
-  inputs:
-    connectionType: 'Azure Resource Manager'
-    azureSubscription: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    azureResourceGroup: 'aks_terraform_nrg'
-    kubernetesCluster: 'terraform-naks'
-    namespace: 'default'
-    command: 'upgrade'
-    chartType: 'FilePath'
-    chartPath: '$(System.DefaultWorkingDirectory)/**/*.tgz'
-    releaseName: 'azurek8sdevops'
-    recreate: true
-    resetValues: true
-    force: true
-    arguments: '--set image.repository=$(imageRepoName) --set image.tag=$(Build.BuildId)'
