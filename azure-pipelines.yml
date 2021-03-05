@@ -6,44 +6,52 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+ vmImageName: 'ubuntu-latest'
 
-steps:
-- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
-  displayName: 'Terraform - Install'
-  inputs:
-    terraformVersion: 'latest'
-- task: TerraformCLI@0
-  displayName: 'Terraform - Init'
-  inputs:
-    command: 'init'
-    backendType: 'azurerm'
-    backendServiceArm: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    backendAzureRmResourceGroupName: 'k8sdem-norg'
-    backendAzureRmStorageAccountName: 'newk8sstorage'
-    backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'terraform.tfstate'
-    allowTelemetryCollection: true
-- task: TerraformCLI@0
-  displayName: 'Terraform Plan'
-  inputs:
-    command: 'plan'
-    environmentServiceName: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    runAzLogin: true
-    commandOptions: '-var-file="terraform.tfvars"'
-    allowTelemetryCollection: true
-    publishPlanResults: 'tfplan'
-- task: TerraformCLI@0
-  displayName: 'Terraform Validate'
-  inputs:
-    command: 'validate'
-    allowTelemetryCollection: true
-- task: TerraformCLI@0
-  displayName: 'Terraform Apply'
-  inputs:
-    command: 'apply'
-    environmentServiceName: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    runAzLogin: true
-    commandOptions: '-var-file="terraform.tfvars"'
-    allowTelemetryCollection: true
+stages:
+- stage: Terraform
+  displayName: Terraform Stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName) 
+    steps:
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Terraform - Install'
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformCLI@0
+      displayName: 'Terraform - Init'
+      inputs:
+        command: 'init'
+        backendType: 'azurerm'
+        backendServiceArm: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+        backendAzureRmResourceGroupName: 'k8sdem-norg'
+        backendAzureRmStorageAccountName: 'newk8sstorage'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'terraform.tfstate'
+        allowTelemetryCollection: true
+    - task: TerraformCLI@0
+      displayName: 'Terraform Plan'
+      inputs:
+        command: 'plan'
+        environmentServiceName: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+        runAzLogin: true
+        commandOptions: '-var-file="terraform.tfvars"'
+        allowTelemetryCollection: true
+        publishPlanResults: 'tfplan'
+    - task: TerraformCLI@0
+      displayName: 'Terraform Validate'
+      inputs:
+        command: 'validate'
+        allowTelemetryCollection: true
+    - task: TerraformCLI@0
+      displayName: 'Terraform Apply'
+      inputs:
+        command: 'apply'
+        environmentServiceName: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+        runAzLogin: true
+        commandOptions: '-var-file="terraform.tfvars"'
+        allowTelemetryCollection: true
