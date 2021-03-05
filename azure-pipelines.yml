@@ -55,3 +55,5 @@ stages:
         runAzLogin: true
         commandOptions: '-var-file="terraform.tfvars"'
         allowTelemetryCollection: true
+    
+    
