@@ -42,11 +42,6 @@ resource "azurerm_kubernetes_cluster" "aks_test_cluster" {
     network_plugin    = "kubenet" # CNI
   }
 
-  service_principal {
-        client_id     = var.client_id
-        client_secret = var.client_secret
-    }
-
   tags = {
     Environment = "Development"
   }
