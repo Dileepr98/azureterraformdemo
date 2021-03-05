@@ -60,6 +60,8 @@ steps:
     azureResourceGroup: 'aks_terraform_nrg'
     kubernetesCluster: 'terraform-naks'
     command: 'init'
+    upgradetiller: true
+    waitForExecution: true
 - task: HelmDeploy@0
   displayName: 'Helm Upgrade'
   inputs:
