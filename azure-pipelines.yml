@@ -55,5 +55,29 @@ stages:
         runAzLogin: true
         commandOptions: '-var-file="terraform.tfvars"'
         allowTelemetryCollection: true
-    
-    
+- stage: Build
+  displayName: Build stage
+  jobs:  
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: DockerCompose@0
+      displayName: 'Docker - Build'
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+        azureContainerRegistry: '{"loginServer":"demotf001nacr.azurecr.io", "id" : "/subscriptions/2ee6da9b-a647-401e-9408-ab64ec71fb25/resourceGroups/aks_terraform_nrg/providers/Microsoft.ContainerRegistry/registries/demotf001nacr"}'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Build services'
+        additionalImageTags: '$(Build.BuildId)'
+    - task: DockerCompose@0
+      displayName: 'Docker - Push'
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
+        azureContainerRegistry: '{"loginServer":"demotf001nacr.azurecr.io", "id" : "/subscriptions/2ee6da9b-a647-401e-9408-ab64ec71fb25/resourceGroups/aks_terraform_nrg/providers/Microsoft.ContainerRegistry/registries/demotf001nacr"}'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Push services'
+        additionalImageTags: '$(Build.BuildId)'
