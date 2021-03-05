@@ -8,6 +8,7 @@ trigger:
 
 variables:
  vmImageName: 'ubuntu-latest'
+ tag: '$(Build.BuildId)'
 
 stages:
 - stage: Terraform
@@ -69,3 +70,8 @@ stages:
         repository: 'mycodeimages'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+        tags: |
+          $(tag)
+
+    - upload: manifests
+      artifact: manifests
