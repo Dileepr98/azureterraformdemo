@@ -47,6 +47,7 @@ steps:
     commandOptions: '-input=false -auto-approve -var-file="terraform.tfvars"'
     environmentServiceNameAzureRM: 'Free Trial(2ee6da9b-a647-401e-9408-ab64ec71fb25)'
 - task: TerraformCLI@0
+  displayName: 'Terraform - Destroy'
   condition: failed()
   inputs:
     command: 'destroy'
