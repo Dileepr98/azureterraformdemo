@@ -22,10 +22,10 @@ steps:
     command: 'init'
     commandOptions: '-input=false'
     backendServiceArm: 'Free Trial (2ee6da9b-a647-401e-9408-ab64ec71fb25)'
-    backendAzureRmResourceGroupName: 'k8sdemorg'
-    backendAzureRmStorageAccountName: 'k8sterraformstorage'
+    backendAzureRmResourceGroupName: 'k8sdem-norg'
+    backendAzureRmStorageAccountName: 'newk8sstorage'
     backendAzureRmContainerName: 'tfstate'
-    backendAzureRmKey: 'terraform.tfstate'
+    backendAzureRmKey: 'root.terraform.tfstate'
 - task: TerraformTaskV1@0
   displayName: 'Terraform - Plan'
   inputs:
